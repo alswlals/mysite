@@ -26,7 +26,7 @@ public class JoinAction implements Action {
 		
 		System.out.println(vo);
 		// new UserDao().inser(vo);
-		
+		response.sendRedirect(request.getContextPath()+"/user?a=joinsuccess");
 	}
 
 }
