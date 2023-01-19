@@ -55,7 +55,7 @@ public class UserDao {
 
 			conn = getConnection();
 
-			String sql = "select no, name from user where email='?' and password = password('?')";
+			String sql = "select no, name from user where email=? and password = password(?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
