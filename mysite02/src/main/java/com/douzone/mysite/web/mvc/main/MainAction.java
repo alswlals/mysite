@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.web.mvc.Action;
-import com.douzone.web.utils.WebUtil;
+import com.douzone.web.utils.MvcUtil;
 
 public class MainAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		WebUtil.forward("main/index", request, response);
+		MvcUtil.forward("main/index", request, response);
 	}
 
 }
