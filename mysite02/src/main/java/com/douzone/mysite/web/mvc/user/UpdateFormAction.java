@@ -16,27 +16,28 @@ public class UpdateFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* Access Control(접근제어)*/
+		/* Access Control(접근제어) */
 		HttpSession session = request.getSession();
-		if(session == null) {
+		if (session == null) {
 			MvcUtil.redirect(request.getContextPath(), request, response);
 			return;
 		}
-		
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			MvcUtil.redirect(request.getContextPath(), request, response);
-			return;
-		}
-		
-		////////////////////////////
-		
-		
-		UserVo vo = new UserDao().FindByNo(authUser.getNo());
-		
-		request.setAttribute("vo", vo);
-		MvcUtil.forward("user/updateform", request, response);
 
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if (authUser == null) {
+			MvcUtil.redirect(request.getContextPath(), request, response);
+			return;
+		}
+
+		////////////////////////////
+
+//		UserVo vo = new UserDao().FindByNo(authUser.getNo(), authUser.getName(), authUser.getPassword(), authUser.getGender());
+
+		Long no = authUser.getNo();
+		UserVo userVo = new UserDao().FindByNo(no);
+		
+		request.setAttribute("userVo", userVo);
+		MvcUtil.forward("user/updateform", request, response);
 	}
 
 }

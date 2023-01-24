@@ -93,6 +93,97 @@ public class UserDao {
 		return result;
 	}
 
+	public UserVo FindByNo(Long no) {
+		UserVo result = null;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "select name, email, password, gender from user where no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, no);
+
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				result = new UserVo();
+				
+				result.setNo(rs.getLong(1));
+				result.setName(rs.getString(2));
+				result.setEmail(rs.getString(3));
+				result.setGender(rs.getString(4));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public void update(UserVo vo) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			
+			conn = getConnection();
+			
+			if("".equals(vo.getPassword())) {
+				String sql = "update user set name=?, gender=? where no=?";
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, vo.getName());
+				psmt.setString(2, vo.getGender());
+				psmt.setLong(3, vo.getNo());
+			} else {
+				String sql = "update user set name=?, gender=?, password=password(?) where no=?";
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, vo.getName());
+				psmt.setString(2, vo.getGender());
+				psmt.setString(3, vo.getPassword());
+				psmt.setLong(4, vo.getNo());
+			}
+			
+			psmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println("error:"+ e);
+		} finally {
+			try {
+				if(psmt != null) {
+					psmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
@@ -108,9 +199,6 @@ public class UserDao {
 		return conn;
 	}
 
-	public UserVo FindByNo(Long no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

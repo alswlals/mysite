@@ -19,7 +19,7 @@
 		<li>
 		<li><a href="<%=request.getContextPath() %>/user?a=logout">로그아웃</a>
 		<li>
-		<li><%=authUser.getName() %>님 안녕하세요 ^^;</li>
+		<li><%=authUser.getName() %>님, 환영합니다!</li>
 		<%} %>
 	</ul>
 </div>
