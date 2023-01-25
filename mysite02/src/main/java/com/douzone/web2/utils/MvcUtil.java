@@ -1,4 +1,4 @@
-package com.douzone.web.utils;
+package com.douzone.web2.utils;
 
 import java.io.IOException;
 
