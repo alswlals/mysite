@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.douzone.web2.mvc.Action;
-import com.douzone.web2.utils.MvcUtil;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.utils.MvcUtil;
 
 public class JoinSuccessAction implements Action {
 
