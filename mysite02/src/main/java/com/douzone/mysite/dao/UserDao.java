@@ -101,7 +101,10 @@ public class UserDao {
 		ResultSet rs = null;
 
 		try {
-			String sql = "select name, email, password, gender from user where no=?";
+			
+			conn = getConnection();
+			
+			String sql = "select no, name, email, gender from user where no=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
 
