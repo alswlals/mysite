@@ -12,24 +12,28 @@ import com.douzone.mysite.vo.BoardVo;
 
 public class BoardDao {
 
-	public boolean insert(BoardVo vo) {
+	public void insert(BoardVo vo) {
 
-		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = getConnection();
 
-			String sql = "insert into board value (null, ?, ?, ?, now(), ?, ?, ?, ?)";
+			String sql = "insert into board values(null, ?, ?, 0, now(), (select ifnull(max(g_no)+1, 1) from board b), 1, 0, ? )";
+			
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
-			pstmt.setInt(3, vo.getHit());
-			pstmt.setInt(4, vo.getGroupNo());
-			pstmt.setInt(5, vo.getOrderNo());
-			pstmt.setInt(6, vo.getDepth());
-			pstmt.setLong(7, vo.getUserNo());
+			pstmt.setLong(3, vo.getUserNo());
+//			pstmt.setString(1, vo.getTitle());
+//			pstmt.setString(2, vo.getContents());
+//			pstmt.setInt(3, vo.getHit());
+//			pstmt.setInt(4, vo.getGroupNo());
+//			pstmt.setInt(5, vo.getOrderNo());
+//			pstmt.setInt(6, vo.getDepth());
+//			pstmt.setLong(7, vo.getUserNo());
 
 			pstmt.executeUpdate();
 
@@ -50,7 +54,7 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}
-		return result;
+
 
 	}
 
@@ -64,7 +68,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "select b.no, b.title, b.contents, b.depth, b.hit, b.reg_date, b.o_no, u.no, u.name "
+			String sql = "select b.no, b.title, b.contents, b.depth, b.hit, b.reg_date, b.o_no, u.no, u.name, b.g_no "
 					+ "from board b, user u where b.user_no= u.no order by b.g_no DESC, b.o_no ASC";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -80,6 +84,7 @@ public class BoardDao {
 				vo.setOrderNo(rs.getInt(7));
 				vo.setUserNo(rs.getLong(8));
 				vo.setUserName(rs.getString(9));
+				vo.setGroupNo(rs.getInt(10));
 
 				result.add(vo);
 			}
@@ -359,12 +364,13 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
+			String sql = " update board set " + "title = ?, contents = ? " + "where no = ?";
 
-			String sql = "update board set order_no=order_no+1 where group_no=? and order_no >=?";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, vo.getGroupNo());
-			pstmt.setInt(2, vo.getOrderNo());
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getNo());
 
 			pstmt.executeUpdate();
 
@@ -385,6 +391,78 @@ public class BoardDao {
 		return result;
 	}
 
+	public void reupdate(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update board  set o_no = o_no + 1 where g_no = ? and o_no > ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, vo.getGroupNo());
+			pstmt.setInt(2, vo.getOrderNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void reinsert(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "insert into board values(null, ?, ?, ?, now(), ?, ?+1, ?, ? )";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setInt(3, vo.getHit());
+			pstmt.setInt(4, vo.getGroupNo());
+			pstmt.setInt(5, vo.getOrderNo());
+			pstmt.setInt(6, vo.getDepth());
+			pstmt.setLong(7, vo.getUserNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 

@@ -17,8 +17,7 @@ public class WriteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int orderNo = 0;
-		int depth = 0;
+		
 //		UserVo uservo = new UserVo();
 //		request.getSession(true).setAttribute("uservo", UserVo);
 		
@@ -35,9 +34,9 @@ public class WriteAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		vo.setHit(0);
-		vo.setGroupNo(new BoardDao().findMax()+1);
-		vo.setOrderNo(orderNo);
-		vo.setDepth(depth);
+		vo.setGroupNo(1);
+		vo.setOrderNo(1);
+		vo.setDepth(0);
 		vo.setUserNo(userno);
 		
 		new BoardDao().insert(vo);

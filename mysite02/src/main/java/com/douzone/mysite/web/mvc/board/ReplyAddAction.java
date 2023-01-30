@@ -38,13 +38,13 @@ public class ReplyAddAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		vo.setHit(0);
-		vo.setGroupNo(vo.getGroupNo());
+//		vo.setGroupNo(vo.getGroupNo());
 		vo.setOrderNo(vo.getOrderNo() + 1);
 		vo.setDepth(vo.getDepth() + 1);
 		vo.setUserNo(uservo.getNo());
 
-		new BoardDao().update(vo);
-		new BoardDao().insert(vo);
+		new BoardDao().reupdate(vo);
+		new BoardDao().reinsert(vo);
 		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
 	}
 }
