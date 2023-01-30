@@ -23,7 +23,7 @@ public class ListAction implements Action {
 		request.setAttribute("page", page);
 	
 		int cnt;
-		Long max = new BoardDao().findMax();
+		int max = new BoardDao().findMax();
 		if (search == null || search.equals("")) {
 			list = new BoardDao().findAll();
 

@@ -18,7 +18,7 @@ public class ModifyAction implements Action {
 		Long no = Long.parseLong( request.getParameter("no"));
 		
 		String title = request.getParameter("title");
-		String contents = request.getParameter("contents");
+		String contents = request.getParameter("content");
 		
 		BoardVo vo = new BoardVo();
 		

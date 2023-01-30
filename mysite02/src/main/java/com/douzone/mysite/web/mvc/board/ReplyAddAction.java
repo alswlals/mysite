@@ -29,7 +29,7 @@ public class ReplyAddAction implements Action {
 		
 		Long no = Long.parseLong(request.getParameter("no"));
 		String title = request.getParameter("title");
-		String contents = request.getParameter("contents");
+		String contents = request.getParameter("content");
 
 		
 		BoardVo vo = new BoardDao().findByNo(no);
@@ -41,7 +41,7 @@ public class ReplyAddAction implements Action {
 		vo.setGroupNo(vo.getGroupNo());
 		vo.setOrderNo(vo.getOrderNo() + 1);
 		vo.setDepth(vo.getDepth() + 1);
-		vo.setUserNo(vo.getUserNo());
+		vo.setUserNo(uservo.getNo());
 
 		new BoardDao().update(vo);
 		new BoardDao().insert(vo);

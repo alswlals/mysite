@@ -245,19 +245,11 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			if(vo.getTitle()==null&vo.getContents()==null) {
-				String sql = "update board set hit=? where no=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setLong(1, vo.getHit());
-				pstmt.setLong(2, vo.getNo());
-			} else {
-				String sql = "update board set title=?, contents=? where no=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, vo.getTitle());
-				pstmt.setString(2, vo.getContents());
-				pstmt.setLong(3, vo.getNo());
-			}
-			
+			String sql = "update board set title=?, contents=? where no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getNo());
 
 			pstmt.executeUpdate();
 
@@ -293,9 +285,9 @@ public class BoardDao {
 
 			if (rs.next()) {
 				int result1 = rs.getInt(1);
-				result = result1 % lastpage == 0 ? result1/lastpage : (result1/lastpage)+1; 
+				result = result1 % lastpage == 0 ? result1 / lastpage : (result1 / lastpage) + 1;
 			}
-			if(result == 0) {
+			if (result == 0) {
 				result = 1;
 			}
 		} catch (SQLException e) {
@@ -319,24 +311,23 @@ public class BoardDao {
 		return result;
 	}
 
-	public Long findMax() {
+	public int findMax() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		long result=0;
-		
+		int result = 0;
+
 		try {
 			conn = getConnection();
 
-			String sql = "select ifnull(max(g_no),0) from board";
+			String sql = "select max(g_no) from board";
 			pstmt = conn.prepareStatement(sql);
 
-			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
-				result=(rs.getLong(1));
-				
+				result = (rs.getInt(1));
+
 			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -419,7 +410,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "select * from board where title LIKE '%"+search+"%'";
+			String sql = "select * from board where title LIKE '%" + search + "%'";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -470,4 +461,5 @@ public class BoardDao {
 
 		return result;
 
-}}
+	}
+}

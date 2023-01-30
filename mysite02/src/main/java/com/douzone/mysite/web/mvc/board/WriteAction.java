@@ -35,7 +35,7 @@ public class WriteAction implements Action {
 		vo.setTitle(title);
 		vo.setContents(contents);
 		vo.setHit(0);
-		vo.setGroupNo(0);
+		vo.setGroupNo(new BoardDao().findMax()+1);
 		vo.setOrderNo(orderNo);
 		vo.setDepth(depth);
 		vo.setUserNo(userno);
