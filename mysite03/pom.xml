@@ -14,7 +14,9 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<org.springframework-version>5.3.25</org.springframework-version>
 	</properties>
+	
 	<dependencies>
+		
 		<!-- spring context-->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -34,12 +36,20 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
 		<!-- MariaDB JDBC Driver -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<version>3.0.8</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
 		<!--servlet -->
 		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
 		<dependency>
@@ -49,16 +59,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.2</version>
 			<scope>provided</scope>
 		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>mysite03</finalName>

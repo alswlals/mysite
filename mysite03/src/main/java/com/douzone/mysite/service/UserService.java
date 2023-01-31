@@ -20,4 +20,11 @@ public class UserService {
 		return userRepository.findByEmailAndPassword(vo);
 	}
 	
+	public UserVo getUser(Long no) {
+		return userRepository.FindByNo(no);
+	}
+
+	public void updateUser(UserVo vo) {
+		userRepository.update(vo);
+	}
 }
