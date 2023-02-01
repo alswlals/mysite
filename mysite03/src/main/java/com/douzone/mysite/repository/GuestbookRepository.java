@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +15,12 @@ import com.douzone.mysite.vo.GuestbookVo;
 
 @Repository
 public class GuestbookRepository {
-	
 	@Autowired
-	private DataSource dataSource;
+	private SqlSession sqlSession;
+	
+//	@Autowired
+//	private DataSource dataSource;
+	
 	public Boolean deleteByNoAndPassword(Long no, String password) {
 		boolean result = false;
 
@@ -26,7 +28,6 @@ public class GuestbookRepository {
 		PreparedStatement pstmt = null;
 
 		try {
-			conn = dataSource.getConnection();
 
 			String sql = "delete from guestbook where no = ? and password = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -61,7 +62,6 @@ public class GuestbookRepository {
 		PreparedStatement pstmt = null;
 
 		try {
-			conn = dataSource.getConnection();
 
 			String sql = "insert into guestbook values(null, ?, ?, ?, now())";
 			pstmt = conn.prepareStatement(sql);
@@ -97,7 +97,6 @@ public class GuestbookRepository {
 		ResultSet rs = null;
 
 		try {
-			conn = dataSource.getConnection();
 
 			String sql = "    select no, name, message, date_format(reg_date, '%Y/%m/%d %H:%i:%s')"
 					+ "      from guestbook" + "  order by reg_date desc";
