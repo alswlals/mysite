@@ -16,6 +16,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.douzone.mysite.vo.BoardVo;
 
 public class BoardRepository {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public List<BoardVo> findAllByPageAndKeyword(int page, String keyword, int size) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startOffset", (page-1)*size);
+		map.put("size", size);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectList("board.findAllByPageAndKeyword", map);
+	}
+
+	public int getTotalCount(String keyword) {
+		return sqlSession.selectOne("board.getTotalCount", keyword);
+	}
+	
 
 	public void insert(BoardVo vo) {
 
@@ -117,7 +134,7 @@ public class BoardRepository {
 		return result;
 	}
 
-	public void delete(Long no) {
+	public void delete(Long no, Long userNo) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -546,17 +563,5 @@ public class BoardRepository {
 
 	}
 
-	@Autowired
-	private SqlSession sqlSession;
-	public List<BoardVo> findAllByPageAndKeyword(int pageNo, String keyword, int size) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("startOffset", (pageNo-1));
-		map.put("keyword", keyword);
-		map.put("size", size);
-		return sqlSession.selectList("board.findAllByPageAndKeyword", map );
-	}
-
-	public int getTotalCount(String keyword) {
-		return sqlSession.selectOne("board.getTotalCount", keyword);
-	}
+	
 }

@@ -2,30 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 	<select id="findAllByPageAndKeyword" parameterType="map">
-		<choose>
-			<when test='keyword == null or '></when>
-		</choose>
 		<![CDATA[
-		select * from board where title like '%%' or contents like #{keyword} or '%${keyword}%'
-		limit #{startOffset}, #{size}
+		select *
+		  from board
+		 where title like '%${keyword }%'
+		    or contents like '%${keyword }%'
+		 limit #{startOffset }, #{size }    
 		]]>
-	
 	</select>
 	
 	<select id="getTotalCount" parameterType="string" resultType="integer">
 		<choose>
-			<when test ='_parameter == null or _parameter == ""'>
-			<![CDATA[
-				select count(*) from boar
+			<when test='_parameter == null or _parameter ==""'>
+				<![CDATA[
+				select count(*)
+				  from board
 				]]>
 			</when>
 			<otherwise>
-			<![CDATA[
-				select * from board where title like '%%' or contents like #{keyword}
+				<![CDATA[
+				select count(*)
+				  from board
+				 where title like '%${_parameter }%'
+				    or contents like '%${_parameter }%'
 				]]>
 			</otherwise>
 		</choose>
-	
+		
 	</select>
-
+	
 </mapper>
