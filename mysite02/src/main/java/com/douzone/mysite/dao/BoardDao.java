@@ -21,9 +21,9 @@ public class BoardDao {
 			conn = getConnection();
 
 			String sql = "insert into board values(null, ?, ?, 0, now(), (select ifnull(max(g_no)+1, 1) from board b), 1, 0, ? )";
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			pstmt.setLong(3, vo.getUserNo());
@@ -45,7 +45,6 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}
-
 
 	}
 
@@ -310,45 +309,45 @@ public class BoardDao {
 	public int count(int lastpage) {
 
 		int result = 0;
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-			
-			String sql ="select ceiling(count(*)/5) from board";
+
+			String sql = "select ceiling(count(*)/5) from board";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				int result1 = rs.getInt(1);
 				result = result1 % lastpage == 0 ? result1 / lastpage : (result1 / lastpage) + 1;
 			}
 			if (result == 0) {
 				result = 1;
-			}			
+			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(pstmt != null) {
+				if (pstmt != null) {
 					pstmt.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
-		
+		}
+
 		return result;
 	}
-	
+
 	public int findGroupMax() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -427,46 +426,46 @@ public class BoardDao {
 	public void reupdate(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			conn = getConnection();
-			
+
 			String sql = "update board  set o_no = o_no + 1 where g_no = ? and o_no > ? ";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, vo.getGroupNo());
 			pstmt.setInt(2, vo.getOrderNo());
-			
+
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(pstmt != null) {
+				if (pstmt != null) {
 					pstmt.close();
 				}
-				
-				if(conn != null) {
+
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	public void reinsert(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			conn = getConnection();
-			
+
 			String sql = "insert into board values(null, ?, ?, ?, now(), ?, ?+1, ?, ? )";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			pstmt.setInt(3, vo.getHit());
@@ -474,28 +473,27 @@ public class BoardDao {
 			pstmt.setInt(5, vo.getOrderNo());
 			pstmt.setInt(6, vo.getDepth());
 			pstmt.setLong(7, vo.getUserNo());
-			
+
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(pstmt != null) {
+				if (pstmt != null) {
 					pstmt.close();
 				}
-				
-				if(conn != null) {
+
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
-	
+
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
@@ -521,7 +519,8 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "select * from board where title LIKE '%" + search + "%'";
+			String sql = "select a.no, a.title, a.contents, a.depth, a.hit, a.reg_date, a.g_no, a.o_no, b.no, b.name "
+					+ "from board a, user b where a.user_no = b.no and (title LIKE '%" + search + "%' or contents LIKE '%" + search + "%')";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -529,13 +528,14 @@ public class BoardDao {
 				Long no = rs.getLong(1);
 				String title = rs.getString(2);
 				String contents = rs.getString(3);
-				int hit = rs.getInt(4);
-				String regDate = rs.getString(5);
-				int groupNo = rs.getInt(6);
-				int orderNo = rs.getInt(7);
-				int depth = rs.getInt(8);
+				int depth = rs.getInt(4);
+				int hit = rs.getInt(5);
+				String regDate = rs.getString(6).toString();
+				int groupNo = rs.getInt(7);
+				int orderNo = rs.getInt(8);
 				Long userNo = rs.getLong(9);
-
+				String userName = rs.getString(10);
+	
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
 				vo.setTitle(title);
@@ -546,10 +546,10 @@ public class BoardDao {
 				vo.setOrderNo(orderNo);
 				vo.setDepth(depth);
 				vo.setUserNo(userNo);
-
+				vo.setUserName(userName);
+	
 				result.add(vo);
 			}
-
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);
 		} finally {
