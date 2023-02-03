@@ -27,17 +27,8 @@ public class BoardDao {
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			pstmt.setLong(3, vo.getUserNo());
-//			pstmt.setString(1, vo.getTitle());
-//			pstmt.setString(2, vo.getContents());
-//			pstmt.setInt(3, vo.getHit());
-//			pstmt.setInt(4, vo.getGroupNo());
-//			pstmt.setInt(5, vo.getOrderNo());
-//			pstmt.setInt(6, vo.getDepth());
-//			pstmt.setLong(7, vo.getUserNo());
 
 			pstmt.executeUpdate();
-
-			System.out.println("== help,,, ==");
 
 		} catch (SQLException e) {
 			System.out.println("Error:" + e);
@@ -275,48 +266,90 @@ public class BoardDao {
 		}
 	}
 
-	public int count(int lastpage) {
-		int result = 0;
+//	public int count(int lastpage) {
+//		int result = 0;
+//
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		try {
+//			conn = getConnection();
+//
+//			String sql = "select count(*) from board";
+//			pstmt = conn.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//
+//			if (rs.next()) {
+//				int result1 = rs.getInt(1);
+//				result = result1 % lastpage == 0 ? result1 / lastpage : (result1 / lastpage) + 1;
+//			}
+//			if (result == 0) {
+//				result = 1;
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("error:" + e);
+//		} finally {
+//			try {
+//				if (rs != null) {
+//					rs.close();
+//				}
+//				if (pstmt != null) {
+//					pstmt.close();
+//				}
+//				if (conn != null) {
+//					conn.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		return result;
+//	}
 
+	public int count(int lastpage) {
+
+		int result = 0;
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-
-			String sql = "select count(*) from board";
+			
+			String sql ="select ceiling(count(*)/5) from board";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
+			
 			if (rs.next()) {
 				int result1 = rs.getInt(1);
 				result = result1 % lastpage == 0 ? result1 / lastpage : (result1 / lastpage) + 1;
 			}
 			if (result == 0) {
 				result = 1;
-			}
+			}			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if (rs != null) {
+				if(rs != null) {
 					rs.close();
 				}
-				if (pstmt != null) {
+				if(pstmt != null) {
 					pstmt.close();
 				}
-				if (conn != null) {
+				if(conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-
+		}		
+		
 		return result;
 	}
-
-	public int findMax() {
+	
+	public int findGroupMax() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
