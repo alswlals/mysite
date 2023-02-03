@@ -60,7 +60,7 @@
 						<li>
 						<c:choose>
 							<c:when test="${page-1 >0}">
-								<a href="${pageContext.request.contextPath }/board?a=list&page=${page-1}">◀</a>
+								<a href="${pageContext.request.contextPath }/board?a=list&page=${page-1}&kwd=${kwd}">◀</a>
 							</c:when>
 							<c:otherwise>
 								<p>◀</p>
@@ -81,7 +81,7 @@
 									<li class="selected">${i }</li>
 								</c:when>
 								<c:otherwise>
-									<a href="${pageContext.request.contextPath }/board?a=list&page=${i}">${i }</a>
+									<a href="${pageContext.request.contextPath }/board?a=list&page=${i}&kwd=${kwd}">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -89,7 +89,7 @@
 						<li>
 							<c:choose>
 									<c:when test="${page+1 < boardCnt/5+1}">
-									<a href="${pageContext.request.contextPath }/board?a=list&page=${page+1}">▶</a>
+									<a href="${pageContext.request.contextPath }/board?a=list&page=${page+1}&kwd=${kwd}">▶</a>
 								</c:when>
 								<c:otherwise>
 									<p>▶</p>

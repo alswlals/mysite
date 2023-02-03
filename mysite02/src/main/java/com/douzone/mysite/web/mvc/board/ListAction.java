@@ -38,6 +38,7 @@ public class ListAction implements Action {
 		request.setAttribute("list", list);
 		request.setAttribute("boardCnt", cnt);
 		request.setAttribute("maxgno", max);
+		request.setAttribute("kwd", search);
 		MvcUtil.forward("board/list", request, response);
 	
 	}
