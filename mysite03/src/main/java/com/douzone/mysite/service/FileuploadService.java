@@ -14,7 +14,7 @@ import com.douzone.mysite.exception.FileuploadServiceException;
 @Service
 public class FileuploadService {
 	/*propertis 빼*/
-	private static String SAVE_PATH = "/Users/awlals/Documents/douzone2023/eclipse/eclipse-workspace/spring-practice/mysite/mysite-uploads";
+	private static String SAVE_PATH = "/Users/awlals/Documents/douzone2023/eclipse/eclipse-workspace/mysite/mysite-uploads";
 	private static String URL_PATH = "/assets/upload-images";
 
 	public String restore(MultipartFile file) {

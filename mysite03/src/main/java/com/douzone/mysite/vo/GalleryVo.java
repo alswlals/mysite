@@ -1,4 +1,4 @@
-package com.douzone.mysite.vi;
+package com.douzone.mysite.vo;
 
 public class GalleryVo {
 	private Long no;
