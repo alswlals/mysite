@@ -33,6 +33,8 @@ public class AdminController {
 		//vo에 업데이트 하는 정보가 있을 텐데 이 vo를 가져다가 
 //		servletContext.setAttribute("siteVo", vo);
 //		siteService.updateSite(vo);
+		// 요 안에서 파일 업로드 구현
+		
 		return "redirect:/admin";
 	}
 	
