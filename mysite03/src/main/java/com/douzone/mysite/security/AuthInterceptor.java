@@ -31,6 +31,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 		if(auth == null) {
 			auth = handlerMethod.getBeanType().getAnnotation(Auth.class);
 		}
+		//강사님 답
+//		if(auth == null) {
+//			auth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
+//		}
 		// 5. Type이나 Method에 @Auth가 없는 경우
 		if(auth == null) {
 			return true;
@@ -49,6 +53,21 @@ public class AuthInterceptor implements HandlerInterceptor {
 		String role = auth.role();
 		String authUserRole = authUser.getRole();
 		
+		/**
+		 * 8. @Auth의 role이 "USER"인 경우, authUser의 role은 상관없다.
+		 * 
+		 * if ("USER".equals(role)){
+		 * 		return true;
+		 * } 
+		 * 
+		 * 9. @Auth의 role이 "ADMIN"인 경우, authUser의 role은 반드시 "ADMIN"이어야 한다.
+		 * 
+		 * if(!"ADMIN".equals(authUser.getRole())){
+		 * 		response.sendRedirect(request.getContextPath());
+		 * 		return false;
+		 * }
+		 */
+		
 		if("ADMIN".equals(role)) {
 			if(authUserRole.equals(role)) {
 				return true;
@@ -59,6 +78,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 		
 		//6. 인증 확인
+		// @Auth의 role: "ADMIN"
+		// @authUSer의 role: "ADMIN"
 		return true;
 	}
 
