@@ -4,7 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div id="header">
-	<h1><a href="${pageContext.request.contextPath }" class="mysitetitle"> ${siteVo.title }</a></h1>
+	<h1><a href="${pageContext.request.contextPath }" class="mysitetitle">
+			 <%-- ${siteVo.title } --%>
+			 ${site.title }
+	</a></h1>
 	<ul>
 		<c:choose>
 			<c:when test="${empty authUser  }">
