@@ -22,3 +22,13 @@ select title, welcome, profile, description
 			order by no asc
 			limit 0, 1;
 update site set title='YourSite' where no =1;
+update site set title='MySite', welcome='Welcome to my site', profile='/assets/images/profile.png', description='환영의 인사'
+		where no =1;
+update site set title='MySite3', welcome='3 Welcome to my site', description='23환영의 인사2'
+		where no =1;
+desc gallery;
+select * from gallery;
+
+-- /assets/upload-images/20231774236846.jpeg
+insert into gallery values (null, url, comments);
+delete from gallery where no = 1 ;
