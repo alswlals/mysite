@@ -43,7 +43,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
 		return messageConverter;
 	}
-
+	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder().indentOutput(true)
 				.dateFormat(new SimpleDateFormat("yyyy-mm-dd"));

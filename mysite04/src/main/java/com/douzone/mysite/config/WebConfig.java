@@ -13,7 +13,6 @@ import com.douzone.mysite.config.web.FileuploadConfig;
 import com.douzone.mysite.config.web.MessageSourceConfig;
 import com.douzone.mysite.config.web.MvcConfig;
 import com.douzone.mysite.config.web.SecurityConfig;
-import com.douzone.mysite.event.ApplicationContextEventListener;
 import com.douzone.mysite.interceptor.SiteInterceptor;
 
 @Configuration
@@ -34,8 +33,8 @@ public class WebConfig  implements WebMvcConfigurer {
 	}
 	
 	/* Application Context Event Listener*/
-	@Bean
-	public ApplicationContextEventListener applicationContextEventListener() {
-		return new ApplicationContextEventListener();
-	}
+//	@Bean
+//	public ApplicationContextEventListener applicationContextEventListener() {
+//		return new ApplicationContextEventListener();
+//	}
 }

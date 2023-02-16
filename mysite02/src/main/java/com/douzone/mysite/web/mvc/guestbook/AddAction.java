@@ -11,7 +11,7 @@ import com.douzone.mysite.vo.GuestbookVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.utils.MvcUtil;
 
-public class addAction implements Action{
+public class AddAction implements Action{
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

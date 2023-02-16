@@ -6,7 +6,7 @@
 <div id="header">
 	<h1><a href="${pageContext.request.contextPath }" class="mysitetitle">
 			 <%-- ${siteVo.title } --%>
-			 ${site.title }
+			 ${siteVo.title }
 	</a></h1>
 	<ul>
 		<c:choose>
