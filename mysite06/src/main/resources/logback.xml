@@ -17,7 +17,7 @@
 			</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>/Users/awlals/Documents/douzone2023/eclipse/eclipse-workspace//mysite-logs/exception.%i.log.zip</FileNamePattern>
+			<FileNamePattern>/Users/awlals/Documents/douzone2023/eclipse/eclipse-workspace/mysite-logs/exception.%i.log.zip</FileNamePattern>
 			<MinIndex>1</MinIndex>
 			<MaxIndex>10</MaxIndex>
 		</rollingPolicy>
