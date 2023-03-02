@@ -24,11 +24,11 @@ var messageBox = function(title, message, callback){
 					"확인":function(){
 						$(this).dialog('close');
 					}
-				}, close: function(){
-					callback && callback();
-				}
+				}, close: callback
+				
 			});
 }
+
 $(function() {
 	$("#join-form").submit(function(event) {
 		event.preventDefault();
