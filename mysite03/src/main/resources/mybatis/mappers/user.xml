@@ -21,6 +21,12 @@
 		]]>
 	</select>
 	
+	<select id="findByEmail" resultType="uservo" parameterType="string">
+		<![CDATA[
+			select no from user where email='${email}'
+		]]>
+	</select>
+	
 	
 	<update id="update" parameterType="uservo">
 			
