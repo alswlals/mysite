@@ -13,8 +13,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css"
 	rel="stylesheet" type="text/css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
@@ -91,10 +90,8 @@
 							if (email === '') {
 								return;
 							}
-							$
-									.ajax({
-										url : "${pageContext.request.contextPath }/user/api/checkemail?email="
-												+ email,
+							$.ajax({
+										url : "${pageContext.request.contextPath }/user/api/checkemail?email="+ email,
 										type : "get",
 										dataType : "json",
 										error : function(xhr, status, error) {

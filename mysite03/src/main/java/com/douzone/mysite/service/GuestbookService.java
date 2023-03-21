@@ -1,6 +1,5 @@
 package com.douzone.mysite.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +10,25 @@ import com.douzone.mysite.vo.GuestbookVo;
 
 @Service
 public class GuestbookService {
-
 	@Autowired
-	public GuestbookRepository guestbookRepository;
+	private GuestbookRepository guestbookRepository;
 	
 	public List<GuestbookVo> getMessageList() {
+			return guestbookRepository.findAll();
+	}
+	
+	public List<GuestbookVo> getMessageList(Long no) {
+		return guestbookRepository.findAll(no);
+	}	
+	
+	public Boolean deleteMessage(Long no, String password) {
+		GuestbookVo vo = new GuestbookVo();
+		vo.setNo(no);
+		vo.setPassword(password);
 		
-		List<GuestbookVo> list = new ArrayList<>();
-		list = guestbookRepository.findAll();
-		return list;
-				
+		return 1 == guestbookRepository.deleteByNoAndPassword(no, password);
 	}
-	
-	public void deleteMessage(Long no, String password) {
-		guestbookRepository.deleteByNoAndPassword(no, password);
-	}
-	
+
 	public void addMessage(GuestbookVo vo) {
 		guestbookRepository.insert(vo);
 	}
