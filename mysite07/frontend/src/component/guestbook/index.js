@@ -42,7 +42,7 @@ export default function Guestbook() {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'applcation/json'
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(message)
             });
@@ -72,7 +72,7 @@ export default function Guestbook() {
             const response = await fetch(`/api/guestbook?no=${startNo}`, {
                 method: 'get',
                 headers: {
-                    'Accept': 'applcation/json'
+                    'Accept': 'application/json'
                 }
             });
 

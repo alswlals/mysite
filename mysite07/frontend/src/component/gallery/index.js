@@ -13,7 +13,7 @@ export default function Index() {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'applcation/json'
+                    'Accept': 'application/json'
                 }
             });
 
@@ -44,7 +44,7 @@ export default function Index() {
                 // Post
                 const response = await fetch(`/api/gallery`, {
                     method: 'post',
-                    headers: {'Accept': 'applcation/json'},
+                    headers: {'Accept': 'application/json'},
                     body: formData
                 });
 
@@ -70,7 +70,7 @@ export default function Index() {
                 // Delete
                 const response = await fetch(`/api/gallery/${no}`, {
                     method: 'delete',
-                    headers: {'Accept': 'applcation/json'},
+                    headers: {'Accept': 'application/json'},
                     body: null
                 });
 
